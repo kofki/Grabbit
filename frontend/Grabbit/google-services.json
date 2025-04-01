@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "195597560804",
+    "project_id": "grabb-2997c",
+    "storage_bucket": "grabb-2997c.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:195597560804:android:d908bc4ecc10db0414f5f1",
+        "android_client_info": {
+          "package_name": "com.kenzof.grabbit"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDoSXnQNjibmbfMycZwBr3GYDs-gikDoLE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
