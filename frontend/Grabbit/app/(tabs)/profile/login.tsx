@@ -11,19 +11,34 @@ import {
 } from "react-native";
 import { CTAButton } from "@/components/CTAButton";
 
-import auth from "@react-native-firebase/auth";
-import db from "@react-native-firebase/database";
+import { auth } from "@/firebaseConfig";
+import { signInWithEmailAndPassword } from "firebase/auth";
 
 import {useRouter} from "expo-router";
+import { onAuthStateChanged } from "@react-native-firebase/auth";
 
 export default function Login(){
-  const [email, setEmail] = useState<string | undefined>();
-  const [password, setPassword] = useState<string | undefined>();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const router = useRouter();
 
+
   const goToRegistration = () => {
     router.push("/profile/register");
+  };
+
+  const handleLogin = () => {
+    signInWithEmailAndPassword(auth, email, password)
+  .then((userCredential) => {
+    // Signed in
+    const user = userCredential.user;
+    router.replace("/profile/profileScreen");
+  })
+  .catch((error) => {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+  });
   };
 
 
@@ -51,7 +66,7 @@ export default function Login(){
               secureTextEntry
             />
           </View>
-          <CTAButton title="Login" onPress={()=>{}} variant="primary" />
+          <CTAButton title="Login" onPress={handleLogin} variant="primary" />
           <CTAButton
             title="Sign Up"
             onPress={goToRegistration}
