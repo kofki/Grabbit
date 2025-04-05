@@ -10,6 +10,7 @@ import { useEffect, useState } from 'react';
 import {ref, set, get} from 'firebase/database';
 import { db } from '@/firebaseConfig';
 import GroupRequests from '@/components/GroupRequests';
+import Group  from '@/components/Group';
 
 export default function HomeScreen() {
       const router = useRouter();
@@ -43,7 +44,7 @@ export default function HomeScreen() {
       <View style={styles.stepContainer}>
         <ThemedText type="title">Grabbit MVP</ThemedText>
       </View>
-      {groups.length > 0 && GroupRequests(groups)}
+      {groups.map((group, index) => (<View key={index}><Group group={group}/></View>))}
       {groups.length <= 0 && <View style={styles.stepContainer}>
         <ThemedText type="default">No groups found</ThemedText>
         <Button title="Create Group" onPress={handleCreateGroup}/>

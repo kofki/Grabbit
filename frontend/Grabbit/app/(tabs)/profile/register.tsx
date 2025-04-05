@@ -26,12 +26,12 @@ export default function Register() {
                     email: email,
                     profile_picture: "https://example.com/profile.jpg"
                 });
-                router.replace("./(tabs)/profile");
+                router.replace("/(tabs)/profile/profileScreen");
             })
             .catch((error) => {
                 const errorCode = error.code;
                 const errorMessage = error.message;
-                Alert.alert("Error", "Wrong email or password");
+                Alert.alert("Error", "Wrong email oor password");
             });
     };
 

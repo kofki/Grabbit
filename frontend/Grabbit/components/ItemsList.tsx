@@ -5,13 +5,12 @@ import BouncyCheckbox from "react-native-bouncy-checkbox";
 
 
 
-const ItemsList = () => {
-  const [item, setItems] = useState<Item[]>([]);
+const ItemsList = ({item, setItems}) => {
   const [text, setText] = useState('');
 
   const addTask = () => {
     if (text.trim() !== '') {
-      setItems([...item, { id: Date.now().toString(), text, completed: false }]);
+      setItems([...item, { id: new Date().toISOString(), text, completed: false }]);
       setText('');
     }
   };
@@ -40,10 +39,6 @@ const ItemsList = () => {
         keyExtractor={item => item.id.toString()}
       />
       <View style={{ flexDirection: 'row', justifyContent: 'flex-start', padding: 10 }}>
-        <BouncyCheckbox
-          isChecked={false}
-          fillColor="green"
-          onPress={() => {}}/>
         <TextInput
             placeholder="Add Item..."
             value={text}

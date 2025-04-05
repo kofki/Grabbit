@@ -20,13 +20,16 @@ export default function CreateGroup() {
         // Create the data you want to store
         set(newGroupRef, {
             group_id: newGroupRef.key,
-            group_name: groupName
+            group_name: groupName,
+            members: [auth.currentUser?.uid]
         })
 
         set(ref(db, 'user_groups/' + auth.currentUser?.uid), {
             "user_id": auth.currentUser?.uid,
             "group_ids": [newGroupRef.key]
         })
+        
+        router.back();
     }
 
 
