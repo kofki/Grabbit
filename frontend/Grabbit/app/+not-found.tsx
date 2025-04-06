@@ -11,7 +11,7 @@ export default function NotFoundScreen() {
       <Stack.Screen options={{ title: 'Oops!' }} />
       <ThemedView style={styles.container}>
         <ThemedText type="title">This screen doesn't exist.</ThemedText>
-        <Button title="Go to Home Screen" onPress={()=>{router.push("/(tabs)/home")}}/>
+        <Button title="Go to Home Screen" onPress={()=>{router.replace("/(tabs)/home")}}/>
       </ThemedView>
     </>
   );

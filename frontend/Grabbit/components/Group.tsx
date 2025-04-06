@@ -24,8 +24,14 @@ export default function Group({group}) {
 
     const router = useRouter();
     return (
-        <TouchableOpacity onPress={() => router.push({pathname: '/(tabs)/home/groupScreen', params: {group: group, groupName: name, members_id: members_id}})} >
+        <TouchableOpacity style={{backgroundColor: '#242526'}} onPress={() => router.push({pathname: '/(tabs)/home/groupScreen', params: {group: group, groupName: name, members_id: members_id}})} >
             <Text style={{color:'white'}}>{name}</Text>
+            <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+            <Button title="Request Items" onPress={() => router.push({pathname: '/(tabs)/home/groupScreen', params: {group: group, groupName: name, members_id: members_id}})} />
+                <Button title="Group Payment" onPress={() => router.push({pathname: '/(tabs)/home/buyerScreen', params: {group: group, groupName: name, members_id: members_id}})} />
+            
+            </View>
+            
         </TouchableOpacity>
     );
 }

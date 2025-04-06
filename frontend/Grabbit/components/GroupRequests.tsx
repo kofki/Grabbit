@@ -6,20 +6,22 @@ import {db} from "@/firebaseConfig";
 import {ref, onValue, get, push, set} from "firebase/database";
 import { auth } from "@/firebaseConfig";
 import { useRouter } from "expo-router";
+import FriendsGroup from "./FriendsGroup";
 
-export default function GroupRequests({friends}) {
+export default function GroupRequests({friends, group_id}) {
     const router = useRouter();
 
     const [items, setItems] = useState([]);
 
     const handleRequest = () => {
-        const requestsRef = ref(db, 'buy_requests');
+      if (items.length <= 0){alert("Please add at least one item"); return;}
+        const requestsRef = ref(db, 'buy_requests/'+ group_id + '/');
         const newRequestRef = push(requestsRef);
 
         set(newRequestRef, {
             date: new Date().toISOString(),
             items: items,
-            group_id: newRequestRef.key,
+            completed: false,
             requestor: auth.currentUser?.uid,
         })
 
@@ -28,20 +30,13 @@ export default function GroupRequests({friends}) {
 
     return (
         <View>
-<View style={styles.stepContainer}>
-        <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-          <ThemedText type="default">Friends in Group:</ThemedText>
-          {friends.map((friend, index) => (
-              <ThemedText type="default" key={index}>{friend}</ThemedText>
-          ))}
-          <Button title="Add Friends"/>
-        </View>
-        <Button title="Add Item"/>
-      </View>
-        <View style={styles.stepContainer}>
-        <ItemsList item={items} setItems={setItems}/>
-        <Button title="Request" onPress={handleRequest}/>
-        </View>
+          <FriendsGroup friends={friends}/>
+          <View style={styles.stepContainer}>
+          </View>
+          <View style={styles.container}>
+            <ItemsList item={items} setItems={setItems}/>
+            <Button title="Request Items" onPress={handleRequest}/>
+          </View>
         </View>
     );
 }
@@ -63,4 +58,11 @@ const styles = StyleSheet.create({
     left: 0,
     position: 'absolute',
   },
+  container: {
+    flex: 1,
+    gap: 10,
+    backgroundColor: '#242526',
+    margin: 5,
+    borderRadius: 10,
+  }
 });

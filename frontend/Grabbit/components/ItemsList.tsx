@@ -1,17 +1,22 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, FlatList } from 'react-native';
-import ItemToBuy, {Item} from './ItemtoBuy';
-import BouncyCheckbox from "react-native-bouncy-checkbox";
+import { View, Text, TextInput, Button, FlatList, TouchableWithoutFeedback, Keyboard } from 'react-native';
+import ItemRequest, {Item} from './ItemRequest';
 
 
 
 const ItemsList = ({item, setItems}) => {
   const [text, setText] = useState('');
+  const [price, setPrice] = useState('');
 
   const addTask = () => {
     if (text.trim() !== '') {
-      setItems([...item, { id: new Date().toISOString(), text, completed: false }]);
+      if (parseFloat(price) > 0) {
+      setItems([...item, { id: new Date().toISOString(), text, completed: false, price: parseFloat(price)}]);
+      } else{
+        setItems([...item, { id: new Date().toISOString(), text, completed: false, price: null}]);
+      }
       setText('');
+      setPrice('');
     }
   };
 
@@ -19,26 +24,18 @@ const ItemsList = ({item, setItems}) => {
     setItems(item.filter(task => task.id !== id));
   };
 
-  const toggleCompleted = (id: string) => {
-    setItems(item.map(task =>
-      task.id === id ? { ...task, completed: !task.completed } : task
-    ));
-  };
 
   return (
     <View>
-      <FlatList
-        data={item}
-        renderItem={({ item }) => (
-          <ItemToBuy
-            task={item}
-            onDelete={deleteTask}
-            onToggle={toggleCompleted}
-          />
-        )}
-        keyExtractor={item => item.id.toString()}
+      {item.map((transaction, index) => (
+        <ItemRequest
+        task={transaction}
+        onDelete={deleteTask}
+        price={transaction.price}
       />
-      <View style={{ flexDirection: 'row', justifyContent: 'flex-start', padding: 10 }}>
+      ))}
+      
+      <View style={{ flexDirection: 'row', justifyContent: 'space-between', padding: 10 }}>
         <TextInput
             placeholder="Add Item..."
             value={text}
@@ -46,6 +43,16 @@ const ItemsList = ({item, setItems}) => {
             onSubmitEditing={addTask}
             style={{ color: 'white'}}
         />
+        <View style={{flexDirection: 'row', justifyContent: 'flex-start'}}>
+          <Text style={{color: 'white'}}>$</Text>
+          <TextInput
+            keyboardType='numeric'
+            placeholder="00.00"
+              value={price}
+              onChangeText={setPrice}
+              style={{ color: 'white'}}
+          />
+        </View>
       </View>
     </View>
   );

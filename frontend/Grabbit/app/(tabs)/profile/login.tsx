@@ -47,7 +47,7 @@ export default function Login(){
       <SafeAreaView style={styles.contentView}>
         <View style={styles.container}>
           <View style={styles.titleContainer}>
-            <Text style={styles.titleText}>Walk Hero</Text>
+            <Text style={styles.titleText}>Grabbit</Text>
           </View>
           <View style={styles.mainContent}>
             <TextInput
