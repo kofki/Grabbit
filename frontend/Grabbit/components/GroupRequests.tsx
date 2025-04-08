@@ -30,7 +30,6 @@ export default function GroupRequests({friends, group_id}) {
 
     return (
         <View>
-          <FriendsGroup friends={friends}/>
           <View style={styles.stepContainer}>
           </View>
           <View style={styles.container}>

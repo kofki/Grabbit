@@ -4,6 +4,7 @@ import { useRouter, useLocalSearchParams, useFocusEffect } from 'expo-router';
 import { db } from '@/firebaseConfig';
 import { ref, onValue } from 'firebase/database';
 import GroupRequests from '@/components/GroupRequests';
+import FriendsGroup from '@/components/FriendsGroup';
 
 
 export default function GroupScreen() {
@@ -27,6 +28,7 @@ export default function GroupScreen() {
     }, []))
     return (
         <ScrollView onScroll={()=> Keyboard.dismiss()} keyboardShouldPersistTaps="handled" scrollEventThrottle={10}>
+            <FriendsGroup friends={members_name}/>
             <GroupRequests friends={members_name} group_id={group}/>
         </ScrollView>
     );

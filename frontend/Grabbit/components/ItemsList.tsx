@@ -29,6 +29,7 @@ const ItemsList = ({item, setItems}) => {
     <View>
       {item.map((transaction, index) => (
         <ItemRequest
+        key={index}
         task={transaction}
         onDelete={deleteTask}
         price={transaction.price}
